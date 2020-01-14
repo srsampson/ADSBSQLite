@@ -16,11 +16,11 @@ The database is updated by a configurable (1 to 13 seconds) time. Aircraft trans
 
 This update time can be considered a simulated Revolutions Per Minute (RPM) of a rotating radar antenna. A long range radar usually updates every 10 to 12 seconds (6 or 5 RPM), while an airport radar will update every 2.5 seconds (24 RPM). A surface to air missile system will update every second (for comparisons).
 
-Included is a config file that the program reads on startup. This contains the database table name. There is also an export of the database so you can initialize the database.
+Included is a config file that the program reads on startup. This contains the database table name. There is also an export of the database SQL so you can initialize the database.
 
 Basically you create a directory to put the ```ADSBSQLite.jar``` file in. Then create a ```lib``` directory and put the database JAR file in there. The program was compiled using this particular file, so don't upgrade it without recompiling (I use Netbeans IDE).
 
-Put the config file in the main directory and you are ready to go after you create the SQLite database. Just import the SQL file.
+Put the config file in the created directory and you are ready to go after you create the SQLite database. Just import the SQL file. I use the ```sqlitebrowser``` tool.
 
 A GUI will be optionally displayed and it basically shows the data counts being received by the Basestation TCP port. Otherwise this program does nothing but work in the background storing the data.
 

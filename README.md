@@ -1,4 +1,7 @@
 #### ADSBSQLite ADS-B Receiver Database Engine
+
+* Very Experimental
+
 This is a Java 8 Application that listens to ADS-B data on TCP port 30003 (or configured alternate port), which is known as the Basestation Compatible port from the original ADS-B receiver from Kinetics UK.
 
 This TCP port does not have any fancy data being output, it is just the most common data that people are interested in - heading, altitude, speed, etc.

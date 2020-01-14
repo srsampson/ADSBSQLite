@@ -59,9 +59,9 @@ public final class Main {
 
             gui = new GUI(db, con);
             gui.setVisible(true);
-        } else {
-            Shutdown sh = new Shutdown(con, db);
-            Runtime.getRuntime().addShutdownHook(sh);
         }
+        
+        Shutdown sh = new Shutdown(con, db);
+        Runtime.getRuntime().addShutdownHook(sh);
     }
 }

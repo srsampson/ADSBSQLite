@@ -32,6 +32,8 @@ There is also a ```metrics``` table that shows how much data has been processed 
 
 Commandline: ```java -jar ADSBSQLite.jar 2>&1 >>errorlog.txt &``` on Linux and just double click the jar file on Windows.
 
+![My image](https://raw.githubusercontent.com/srsampson/ADSBSQLite/master/callsign.png)
+
 ##### Time and Date Stamps
 All data is recorded in UTC time. This is so multiple receivers in different time zones all record to the same time reference. Although, the times may differ if system are not synchronized to GPS.
 

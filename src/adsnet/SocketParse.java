@@ -77,9 +77,9 @@ public final class SocketParse extends Thread {
     /*
      * Class constructor
      */
-    public SocketParse(Config c) {
+    public SocketParse(Config c, ZuluMillis z) {
         this.config = c;
-        this.zulu = new ZuluMillis();
+        this.zulu = z;
 
         trackReports = new ConcurrentHashMap<>();
         reg = new NConverter();

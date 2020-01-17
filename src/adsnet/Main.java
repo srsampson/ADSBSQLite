@@ -8,15 +8,18 @@ import java.util.Locale;
  * This software listens for ADS-B/Mode-S data from a Basestation compatible
  * TCP socket port, and puts the data into SQLite database tables.
  *
- * @version 1.9
+ * @version 1.90
  */
 public final class Main {
 
     private static GUI gui;
+    private static ZuluMillis zulu;
     private static String config = "adsbsqlite.conf";
     private static Config c;
 
     public static void main(String[] args) {
+        zulu = new ZuluMillis();
+        
         /*
          * The user may have a commandline option as to which config file to use
          */
@@ -44,8 +47,8 @@ public final class Main {
         /*
          * Start the program
          */
-        SocketParse con = new SocketParse(c);
-        ADSBDatabase db = new ADSBDatabase(c, con);
+        SocketParse con = new SocketParse(c, zulu);
+        ADSBDatabase db = new ADSBDatabase(c, con, zulu);
 
         System.out.println("Program started");
 
@@ -60,8 +63,11 @@ public final class Main {
             gui = new GUI(db, con);
             gui.setVisible(true);
         }
+
+        MetarUpdater mu = new MetarUpdater(c, db, zulu);
+        mu.start();
         
-        Shutdown sh = new Shutdown(con, db);
+        Shutdown sh = new Shutdown(con, db, mu);
         Runtime.getRuntime().addShutdownHook(sh);
     }
 }

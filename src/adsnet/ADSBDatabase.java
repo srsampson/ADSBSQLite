@@ -31,16 +31,16 @@ public final class ADSBDatabase extends Thread {
     private Timer timer;
     private TimerTask task;
 
-    public ADSBDatabase(Config cf, SocketParse k) {
+    public ADSBDatabase(Config cf, SocketParse k, ZuluMillis z) {
         this.con = k;
-        this.zulu = new ZuluMillis();
+        this.zulu = z;
         this.config = cf;
         this.radarid = cf.getRadarID();
         this.radarscan = (long) cf.getRadarScanTime() * 1000L;
         this.acid = "";
         EOF = false;
 
-        task = new ADSBDatabase.TimeoutThread(config.getDatabaseTimeout());
+        task = new TimeoutThread(config.getDatabaseTimeout());
         timer = new Timer();
 
         database = new Thread(this);
@@ -67,6 +67,10 @@ public final class ADSBDatabase extends Thread {
         } catch (SQLException e) {
             // Don't care
         }
+    }
+
+    public Connection getDBConnection() {
+        return db1;
     }
 
     @Override

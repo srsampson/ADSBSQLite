@@ -9,10 +9,15 @@ import java.util.Properties;
  */
 public final class Config {
 
+    public static final String STATION_ALT = "station.alt";
+    public static final String STATION_METAR = "station.airportmetar";
+    //
     private int socketPort;
     private int radarid;
     private int radarscan;
     private int databaseTargetTimeout;
+    private int homeAlt;
+    private String[] metarNames;
     private String socketIP;
     private String databaseName;
     private boolean disablegui;
@@ -26,6 +31,7 @@ public final class Config {
         String temp;
 
         socketIP = "127.0.0.1";
+        homeAlt = 0;
         radarscan = 3;
         socketPort = 30003;
         databaseTargetTimeout = 3;    // 3 minutes
@@ -54,6 +60,18 @@ public final class Config {
          * none given.
          */
         if (Props != null) {
+
+            temp = Props.getProperty(STATION_ALT, "0").trim();
+            Props.setProperty(STATION_ALT, temp);
+            try {
+                homeAlt = Integer.parseInt(temp);
+            } catch (NumberFormatException e) {
+                homeAlt = 0;
+            }
+
+            temp = Props.getProperty(STATION_METAR);
+            metarNames = temp.toUpperCase().split(",");
+
             temp = Props.getProperty("radar.id");
             if (temp == null) {
                 radarid = 0;
@@ -132,6 +150,14 @@ public final class Config {
                 databaseName = temp;
             }
         }
+    }
+
+    public int getHomeAlt() {
+        return homeAlt;
+    }
+
+    public String[] getMetarNames() {
+        return metarNames;
     }
 
     /**

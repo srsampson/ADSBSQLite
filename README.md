@@ -1,6 +1,6 @@
 #### ADSBSQLite ADS-B Receiver Database Engine
 
-* Very Experimental, Initial Version, tested on Ubuntu 18.04.3 LTS, and Java SE 1.8.0_111
+* Very Experimental, Initial Version, tested on Ubuntu 20.04 LTS, and Java SE 1.8.0_111
 
 This is a Java 8 Application that listens to ADS-B data on TCP port 30003 (or configured alternate port), which is known as the Basestation compatible port. The idea being, that with the data collected into a database, then other applications (Web, GUI, etc) can share this information. This removes a lot of persistant data (static data) from memory.
 

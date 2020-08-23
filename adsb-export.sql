@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS `targetecho` (
 	`acid`	TEXT NOT NULL,
 	`utcdetect`	INTEGER NOT NULL,
 	`altitude`	INTEGER DEFAULT NULL,
-	`latitude`	REAL NOT NULL,
-	`longitude`	REAL NOT NULL,
+	`latitude`	REAL DEFAULT NULL,
+	`longitude`	REAL DEFAULT NULL,
 	`onground`	INTEGER NOT NULL DEFAULT 0,
 	FOREIGN KEY(`acid`) REFERENCES `modestable`(`acid`)
 );

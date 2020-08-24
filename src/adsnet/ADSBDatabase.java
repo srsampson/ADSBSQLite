@@ -431,7 +431,7 @@ public final class ADSBDatabase extends Thread {
              */
             update = String.format(
                     "INSERT INTO targethistory (flight_id,radar_id,acid,utcdetect,utcfadeout,altitude,groundSpeed,"
-                    + "groundTrack,gsComputed,gtComputed,callsign,latitude,longitude,verticalRate,squawk,alert,emergency,spi,onground,"
+                    + "groundTrack,gsComputed,gtComputed,callsign,latitude,longitude,verticalRate,verticalTrend,squawk,alert,emergency,spi,onground,"
                     + "hijack,comm_out,hadAlert,hadEmergency,hadSPI) SELECT flight_id,radar_id,acid,"
                     + "utcdetect,utcupdate,altitude,groundSpeed,groundTrack,gsComputed,gtComputed,"
                     + "callsign,latitude,longitude,verticalRate,verticalTrend,squawk,alert,emergency,spi,onground,hijack,"
@@ -461,12 +461,12 @@ public final class ADSBDatabase extends Thread {
             update = String.format("INSERT INTO metrics ("
                     + "utcupdate,callsignCount,"
                     + "surfaceCount,airborneCount,velocityCount,altitudeCount,"
-                    + "squawkCount,trackCount,radar_id) "
-                    + "VALUES (%d,%d,%d,%d,%d,%d,%d,%d,%d"
+                    + "squawkCount,airairCount,trackCount,radar_id) "
+                    + "VALUES (%d,%d,%d,%d,%d,%d,%d,%d,%d,%d"
                     + ")",
                     time, con.getCallsignMetric(), con.getSurfaceMetric(), con.getAirborneMetric(),
                     con.getVelocityMetric(), con.getAltitudeMetric(), con.getSquawkMetric(),
-                    con.getTrackMetric(), radarid);
+                    con.getAirAirMetric(), con.getTrackMetric(), radarid);
 
             con.resetMetricCount();
 

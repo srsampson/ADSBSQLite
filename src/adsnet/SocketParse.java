@@ -66,12 +66,14 @@ public final class SocketParse extends Thread {
     private long velocityCount;
     private long altitudeCount;
     private long squawkCount;
+    private long airairCount;
     //
     private long callsignMetric;
     private long surfaceMetric;
     private long airborneMetric;
     private long velocityMetric;
     private long altitudeMetric;
+    private long airairMetric;
     private long squawkMetric;
 
     /*
@@ -139,7 +141,8 @@ public final class SocketParse extends Thread {
                 = airborneCount
                 = velocityCount
                 = altitudeCount
-                = squawkCount = 0L;
+                = squawkCount
+                = airairCount = 0L;
     }
 
     public void resetMetricCount() {
@@ -148,6 +151,7 @@ public final class SocketParse extends Thread {
                 = airborneMetric
                 = velocityMetric
                 = altitudeMetric
+                = airairMetric
                 = squawkMetric = 0L;
     }
 
@@ -175,6 +179,10 @@ public final class SocketParse extends Thread {
         return squawkCount;
     }
 
+    public long getAirAirCount() {
+        return airairCount;
+    }
+    
     public long getCallsignMetric() {
         return callsignMetric;
     }
@@ -199,6 +207,10 @@ public final class SocketParse extends Thread {
         return squawkMetric;
     }
 
+    public long getAirAirMetric() {
+        return airairMetric;
+    }
+    
     public long getTrackMetric() {
         synchronized (trackReports) {
             return trackReports.size();
@@ -675,8 +687,8 @@ public final class SocketParse extends Thread {
                                 id.setSquawk(squawk);
                                 break;
                             case 7:
-                                altitudeCount++;
-                                altitudeMetric++;
+                                airairCount++;
+                                airairMetric++;
 
                                 temp = token[ALTITUDE].trim();
 

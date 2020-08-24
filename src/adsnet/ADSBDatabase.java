@@ -126,7 +126,7 @@ public final class ADSBDatabase extends Thread {
 
                         if (exists > 0) {         // target exists
                             queryString = String.format("UPDATE target SET utcupdate=%d,"
-                                    + "altitude=%d,"
+                                    + "altitude=NULLIF(%d, -9999),"
                                     + "groundSpeed=NULLIF(%.1f, -999.0),"
                                     + "groundTrack=NULLIF(%.1f, -999.0),"
                                     + "gsComputed=NULLIF(%.1f, -999.0),"
@@ -135,6 +135,7 @@ public final class ADSBDatabase extends Thread {
                                     + "latitude=NULLIF(%f, -999.0),"
                                     + "longitude=NULLIF(%f, -999.0),"
                                     + "verticalRate=NULLIF(%d, -9999),"
+                                    + "verticalTrend=%d,"
                                     + "quality=%d,"
                                     + "squawk=NULLIF(%d, -9999),"
                                     + "alert=%d,"
@@ -157,6 +158,7 @@ public final class ADSBDatabase extends Thread {
                                     trk.getLatitude(),
                                     trk.getLongitude(),
                                     trk.getVerticalRate(),
+                                    trk.getVerticalTrend(),
                                     trk.getTrackQuality(),
                                     trk.getSquawk(),
                                     trk.getAlert() ? 1 : 0,
@@ -196,7 +198,8 @@ public final class ADSBDatabase extends Thread {
                                     + "hadAlert,"
                                     + "hadEmergency,"
                                     + "hadSPI) "
-                                    + "VALUES ('%s',%d,%d,%d,%d,"
+                                    + "VALUES ('%s',%d,%d,%d,"
+                                    + "NULLIF(%d, -9999),"
                                     + "NULLIF(%.1f,-999.0),"
                                     + "NULLIF(%.1f,-999.0),"
                                     + "NULLIF(%.1f,-999.0),"
@@ -251,6 +254,7 @@ public final class ADSBDatabase extends Thread {
                                     + "radar_id,"
                                     + "acid,"
                                     + "utcdetect,"
+                                    + "verticalTrend,"
                                     + "latitude,"
                                     + "longitude,"
                                     + "altitude,"
@@ -260,15 +264,17 @@ public final class ADSBDatabase extends Thread {
                                     + "%d,"
                                     + "'%s',"
                                     + "%d,"
-                                    + "%f,"
-                                    + "%f,"
                                     + "%d,"
+                                    + "NULLIF(%f, -999.0),"
+                                    + "NULLIF(%f, -999.0),"
+                                    + "NULLIF(%d, -9999),"
                                     + "%d)",
                                     acid,
                                     radarid,
                                     radarid,
                                     acid,
                                     time,
+                                    trk.getVerticalTrend(),
                                     trk.getLatitude(),
                                     trk.getLongitude(),
                                     trk.getAltitude(),
@@ -428,7 +434,7 @@ public final class ADSBDatabase extends Thread {
                     + "groundTrack,gsComputed,gtComputed,callsign,latitude,longitude,verticalRate,squawk,alert,emergency,spi,onground,"
                     + "hijack,comm_out,hadAlert,hadEmergency,hadSPI) SELECT flight_id,radar_id,acid,"
                     + "utcdetect,utcupdate,altitude,groundSpeed,groundTrack,gsComputed,gtComputed,"
-                    + "callsign,latitude,longitude,verticalRate,squawk,alert,emergency,spi,onground,hijack,"
+                    + "callsign,latitude,longitude,verticalRate,verticalTrend,squawk,alert,emergency,spi,onground,hijack,"
                     + "comm_out,hadAlert,hadEmergency,hadSPI FROM target WHERE target.utcupdate <= %d",
                     timeout);
 

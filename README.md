@@ -8,6 +8,8 @@ The application reads the data in and creates database SQL statements in which t
 
 ![My image](https://raw.githubusercontent.com/srsampson/ADSBSQLite/master/adsbsqlite.png)
 
+When creating the database, just import the ```adsb-export.sql``` file, and then change the Pragma ```Journal Mode``` to ```WAL``` using the ```sqlitebrowser``` application.
+
 The database is updated by a configurable (1 to 13 seconds) time. Aircraft transmit their position every second, but in most cases it isn't necessary to have that resolution. By default I set 3 seconds, which is adequate for me. In the Track Display program, it reads the database every second, which if you set in 13 seconds here, not a lot of its queries will have new data, but reading is not as database intensive as writing. Every write will update several tables.
 
 This update time can be considered a simulated Revolutions Per Minute (RPM) of a rotating radar antenna. A long range radar usually updates every 10 to 12 seconds (6 or 5 RPM), while an airport radar will update every 2.5 seconds (24 RPM). A surface to air missile system will update every second (for comparisons).

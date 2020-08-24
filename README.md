@@ -18,7 +18,7 @@ Included is a config file that the program reads on startup. This contains the d
 
 Basically you create a directory to put the ```ADSBSQLite.jar``` file in. Then create a ```lib``` directory and put the database JAR file in there. The program was compiled using this particular file, so don't upgrade it without recompiling (I use Netbeans IDE).
 
-Put the config file in the created directory and you are ready to go after you create the SQLite database. Just import the SQL file. I use the ```sqlitebrowser``` tool.
+Put the config file in the created directory and you are ready to go.
 
 A GUI will be optionally displayed and it basically shows the data counts being received by the Basestation TCP port. Otherwise this program does nothing but work in the background storing the data.
 

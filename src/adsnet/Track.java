@@ -7,7 +7,7 @@ public final class Track {
 
     private String acid;            // Aircraft ID
     private String registration;    // N-Number if USA registered
-    private int trackQuality;       // 0 - 9 quality value (9 means Firm)
+    private int trackQuality;       // 0 - 9 quality value (9 means Best)
     private int verticalRate;       // fps
     private int verticalTrend;      // -1 = down, 0 = level, 1 = up
     private final int[] trend = new int[10];
@@ -42,57 +42,57 @@ public final class Track {
     private final ZuluMillis zulu;  // UTC time generator
 
     public Track() {
-        this.zulu = new ZuluMillis();
-        this.acid = "";
-        this.registration = "";
-        this.groundSpeed = -999.0F;
-        this.groundTrack = -999.0F;
-        this.groundSpeedComputed = -999.0F;
-        this.groundTrackComputed = -999.0F;
-        this.latitude = -999.0F;
-        this.longitude = -999.0F;
-        this.verticalRate = -9999;
-        this.altitude = -9999;
-        this.squawk = -9999;
-        this.callsign = "";
-        this.trackQuality = 0;
-        this.updatePositionTime = 0L;
-        this.updateTime = zulu.getUTCTime();
-        this.alert = this.emergency = this.spi = this.hadAlert
-                = this.hadEmergency = this.hadSPI = hijack = comm_out = false;
-        this.updated = updatePosition = false;
-        this.isOnGround = isVirtOnGround = false;
+        zulu = new ZuluMillis();
+        updateTime = zulu.getUTCTime();
+        //
+        acid = "";
+        registration = "";
+        callsign = "";
+        //
+        groundSpeed = -999.0F;
+        groundTrack = -999.0F;
+        groundSpeedComputed = -999.0F;
+        groundTrackComputed = -999.0F;
+        latitude = -999.0F;
+        longitude = -999.0F;
+        verticalRate = -9999;
+        altitude = -9999;
+        squawk = -9999;
+        //
+        trackQuality = 0;           // aircraft with positions
+        updatePositionTime = 0L;    // time position updated
+        //
+        alert = false;
+        emergency = false;
+        spi = false;
+        hadAlert = false;
+        hadEmergency = false;
+        hadSPI = false;
+        hijack = false;
+        comm_out = false;
+        updated = false;
+        updatePosition = false;
+        isOnGround = false;
+        isVirtOnGround = false;
     }
 
     /**
-     * Method to increment track quality
+     * Method to increment track with position quality
      */
     public void incrementTrackQuality() {
-        if (this.trackQuality < 9) {
-            this.trackQuality++;
-            this.updated = true;
+        if (trackQuality < 9) {
+            trackQuality++;
+            updated = true;
         }
     }
 
     /**
-     * Method to decrement track quality
+     * Method to decrement track with position quality
      */
     public void decrementTrackQuality() {
-        if (this.trackQuality > 0) {
-            this.trackQuality--;
-            this.updated = true;
-        }
-    }
-
-    /**
-     * Method to set the track quality
-     *
-     * @param val an integer Representing the track quality [0...9]
-     */
-    public void setTrackQuality(int val) {
-        if (this.trackQuality != val) {
-            this.trackQuality = val;
-            this.updated = true;
+        if (trackQuality > 0) {
+            trackQuality--;
+            updated = true;
         }
     }
 
@@ -102,7 +102,7 @@ public final class Track {
      * @return an integer representing the track quality [0...9]
      */
     public int getTrackQuality() {
-        return this.trackQuality;
+        return trackQuality;
     }
 
     /**
@@ -111,7 +111,7 @@ public final class Track {
      * @return boolean which signals if the track has been updated
      */
     public boolean getUpdated() {
-        return this.updated;
+        return updated;
     }
 
     /**
@@ -120,7 +120,7 @@ public final class Track {
      * @param val a boolean which signals the track has been updated
      */
     public void setUpdated(boolean val) {
-        this.updated = val;
+        updated = val;
     }
 
     /**
@@ -129,7 +129,7 @@ public final class Track {
      * @return boolean which signals if the track position has been updated
      */
     public boolean getUpdatePosition() {
-        return this.updatePosition;
+        return updatePosition;
     }
 
     /**
@@ -138,7 +138,7 @@ public final class Track {
      * @param val a boolean to set or reset the track position updated status
      */
     public void setUpdatePosition(boolean val) {
-        this.updatePosition = val;
+        updatePosition = val;
     }
 
     /**
@@ -147,7 +147,7 @@ public final class Track {
      * @return a string Representing the track Mode-S Hex ID
      */
     public String getAircraftID() {
-        return this.acid;
+        return acid;
     }
 
     /**
@@ -156,7 +156,7 @@ public final class Track {
      * @param val a string Representing the track Mode-S Hex ID
      */
     public void setAircraftID(String val) {
-        this.acid = val;
+        acid = val;
     }
 
     /**
@@ -165,7 +165,7 @@ public final class Track {
      * @return a string Representing the track registration
      */
     public String getRegistration() {
-        return this.registration;
+        return registration;
     }
 
     /**
@@ -174,7 +174,7 @@ public final class Track {
      * @param val a string Representing the track registration
      */
     public void setRegistration(String val) {
-        this.registration = val;
+        registration = val;
     }
 
     /**
@@ -184,7 +184,7 @@ public final class Track {
      * milliseconds
      */
     public long getUpdatePositionTime() {
-        return this.updatePositionTime;
+        return updatePositionTime;
     }
 
     /**
@@ -193,7 +193,7 @@ public final class Track {
      * @return a long Representing the track updated time in milliseconds
      */
     public long getUpdateTime() {
-        return this.updateTime;
+        return updateTime;
     }
 
     /**
@@ -202,7 +202,7 @@ public final class Track {
      * @param val a long Representing the track updated time in milliseconds
      */
     public void setUpdateTime(long val) {
-        this.updateTime = val;
+        updateTime = val;
     }
 
     /**
@@ -212,7 +212,7 @@ public final class Track {
      * @return an integer Representing the track climb or descent rate
      */
     public int getVerticalRate() {
-        return this.verticalRate;
+        return verticalRate;
     }
 
     /**
@@ -222,9 +222,9 @@ public final class Track {
      * @param val an integer Representing the track climb or descent rate
      */
     public void setVerticalRate(int val) {
-        if (this.verticalRate != val) {
-            this.verticalRate = val;
-            this.updated = true;
+        if (verticalRate != val) {
+            verticalRate = val;
+            updated = true;
             
             int vt = 0;
 
@@ -262,7 +262,7 @@ public final class Track {
      * @return target groundspeed in knots
      */
     public float getGroundSpeed() {
-        return this.groundSpeed;
+        return groundSpeed;
     }
 
     /**
@@ -271,7 +271,7 @@ public final class Track {
      * @return target ground track in degrees true north
      */
     public float getGroundTrack() {
-        return this.groundTrack;
+        return groundTrack;
     }
 
     /**
@@ -280,7 +280,7 @@ public final class Track {
      * @return target groundspeed in knots
      */
     public float getComputedGroundSpeed() {
-        return this.groundSpeedComputed;
+        return groundSpeedComputed;
     }
 
     /**
@@ -289,15 +289,15 @@ public final class Track {
      * @return target ground track in degrees true north
      */
     public float getComputedGroundTrack() {
-        return this.groundTrackComputed;
+        return groundTrackComputed;
     }
 
     public void setComputedGroundSpeed(float val) {
-        this.groundSpeedComputed = val;
+        groundSpeedComputed = val;
     }
 
     public void setComputedGroundTrack(float val) {
-        this.groundTrackComputed = val;
+        groundTrackComputed = val;
     }
 
     /**
@@ -315,23 +315,23 @@ public final class Track {
     public void setVelocityData(float val1, float val2, int val3) {
         boolean changed = false;
 
-        if (this.groundTrack != val1) {
-            this.groundTrack = val1;
+        if (groundTrack != val1) {
+            groundTrack = val1;
             changed = true;
         }
 
-        if (this.groundSpeed != val2) {
-            this.groundSpeed = val2;
+        if (groundSpeed != val2) {
+            groundSpeed = val2;
             changed = true;
         }
 
-        if (this.verticalRate != val3) {
-            this.setVerticalRate(val3);
+        if (verticalRate != val3) {
+            setVerticalRate(val3);
             changed = true;
         }
 
         if (changed) {
-            this.updated = true;
+            updated = true;
         }
     }
 
@@ -342,10 +342,10 @@ public final class Track {
      * @param val an integer Representing altitude in feet MSL or -9999 for null
      */
     public void setAltitude(int val) {
-        if (this.altitude != val) {
-            this.altitude = val;
-            this.isVirtOnGround = (val == 0);
-            this.updated = true;
+        if (altitude != val) {
+            altitude = val;
+            isVirtOnGround = (val == 0);
+            updated = true;
         }
     }
 
@@ -355,7 +355,7 @@ public final class Track {
      * @return an integer Representing the target altitude in feet MSL
      */
     public int getAltitude() {
-        return this.altitude;
+        return altitude;
     }
 
     /**
@@ -364,7 +364,7 @@ public final class Track {
      * @return a float Representing the target latitude
      */
     public float getLatitude() {
-        return this.latitude;
+        return latitude;
     }
 
     /**
@@ -373,7 +373,7 @@ public final class Track {
      * @return a float Representing the target longitude
      */
     public float getLongitude() {
-        return this.longitude;
+        return longitude;
     }
 
     /**
@@ -393,20 +393,20 @@ public final class Track {
             return;
         }
 
-        if (this.latitude != val1) {
-            this.latitude = val1;
+        if (latitude != val1) {
+            latitude = val1;
             changed = true;
         }
 
-        if (this.longitude != val2) {
-            this.longitude = val2;
+        if (longitude != val2) {
+            longitude = val2;
             changed = true;
         }
 
         if (changed) {
             incrementTrackQuality();
-            this.updated = this.updatePosition = true;
-            this.updatePositionTime = zulu.getUTCTime();
+            updated = updatePosition = true;
+            updatePositionTime = zulu.getUTCTime();
         }
     }
 
@@ -416,7 +416,7 @@ public final class Track {
      * @return a string Representing the target callsign
      */
     public String getCallsign() {
-        return this.callsign;
+        return callsign;
     }
 
     /**
@@ -425,9 +425,9 @@ public final class Track {
      * @param val a string Representing the target callsign
      */
     public synchronized void setCallsign(String val) {
-        if (!val.equals(this.callsign)) {
-            this.callsign = val;
-            this.updated = true;
+        if (!val.equals(callsign)) {
+            callsign = val;
+            updated = true;
         }
     }
 
@@ -437,7 +437,7 @@ public final class Track {
      * @return an integer Representing the target octal squawk
      */
     public int getSquawk() {
-        return this.squawk;
+        return squawk;
     }
 
     /**
@@ -446,11 +446,11 @@ public final class Track {
      * @param val an integer Representing the target octal squawk
      */
     public void setSquawk(int val) {
-        if (this.squawk != val) {
-            this.squawk = val;
-            this.updated = true;
-            this.hijack = val == 7500;
-            this.comm_out = val == 7600;
+        if (squawk != val) {
+            squawk = val;
+            updated = true;
+            hijack = val == 7500;
+            comm_out = val == 7600;
         }
     }
 
@@ -460,7 +460,7 @@ public final class Track {
      * @return a boolean Representing the Emergency status
      */
     public boolean getEmergency() {
-        return this.emergency;
+        return emergency;
     }
 
     /**
@@ -469,7 +469,7 @@ public final class Track {
      * @return a boolean Representing the SPI status
      */
     public boolean getSPI() {
-        return this.spi;
+        return spi;
     }
 
     /**
@@ -478,15 +478,15 @@ public final class Track {
      * @return a boolean Representing the Hijack status
      */
     public boolean getHijack() {
-        return this.hijack;
+        return hijack;
     }
 
     public boolean getCommOut() {
-        return this.comm_out;
+        return comm_out;
     }
 
     public boolean getVirtualOnGround() {
-        return this.isVirtOnGround;
+        return isVirtOnGround;
     }
 
     /**
@@ -495,7 +495,7 @@ public final class Track {
      * @return a boolean Representing the OnGround status
      */
     public boolean getOnGround() {
-        return this.isOnGround;
+        return isOnGround;
     }
 
     /**
@@ -504,9 +504,9 @@ public final class Track {
      * @param val a boolean Representing the OnGround status
      */
     public void setOnGround(boolean val) {
-        if (this.isOnGround != val) {
-            this.isOnGround = val;
-            this.updated = true;
+        if (isOnGround != val) {
+            isOnGround = val;
+            updated = true;
         }
     }
 
@@ -517,7 +517,7 @@ public final class Track {
      * @return a boolean Representing the Alert status
      */
     public boolean getAlert() {
-        return this.alert;
+        return alert;
     }
 
     /**
@@ -535,50 +535,50 @@ public final class Track {
     public void setAlert(boolean val1, boolean val2, boolean val3) {
         boolean changed = false;
 
-        if (this.alert != val1) {
-            this.alert = val1;
+        if (alert != val1) {
+            alert = val1;
 
             if (alert == true) {
-                this.hadAlert = true;
+                hadAlert = true;
             }
 
             changed = true;
         }
 
-        if (this.emergency != val2) {
-            this.emergency = val2;
+        if (emergency != val2) {
+            emergency = val2;
 
-            if (this.emergency == true) {
-                this.hadEmergency = true;
+            if (emergency == true) {
+                hadEmergency = true;
             }
 
             changed = true;
         }
 
-        if (this.spi != val3) {
-            this.spi = val3;
+        if (spi != val3) {
+            spi = val3;
 
-            if (this.spi == true) {
-                this.hadSPI = true;
+            if (spi == true) {
+                hadSPI = true;
             }
 
             changed = true;
         }
 
         if (changed) {
-            this.updated = true;
+            updated = true;
         }
     }
 
     public boolean getHadAlert() {
-        return this.hadAlert;
+        return hadAlert;
     }
 
     public boolean getHadEmergency() {
-        return this.hadEmergency;
+        return hadEmergency;
     }
 
     public boolean getHadSPI() {
-        return this.hadSPI;
+        return hadSPI;
     }
 }

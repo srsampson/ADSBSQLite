@@ -18,8 +18,8 @@ public final class GUI extends JFrame {
     private final ADSBDatabase db;
 
     public GUI(ADSBDatabase d, SocketParse c) {
-        this.db = d;
-        this.process = c;
+        db = d;
+        process = c;
 
         initComponents();
 

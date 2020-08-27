@@ -32,12 +32,12 @@ public final class ADSBDatabase extends Thread {
     private TimerTask task;
 
     public ADSBDatabase(Config cf, SocketParse k, ZuluMillis z) {
-        this.con = k;
-        this.zulu = z;
-        this.config = cf;
-        this.radarid = cf.getRadarID();
-        this.radarscan = (long) cf.getRadarScanTime() * 1000L;
-        this.acid = "";
+        con = k;
+        zulu = z;
+        config = cf;
+        radarid = cf.getRadarID();
+        radarscan = (long) cf.getRadarScanTime() * 1000L;
+        acid = "";
         EOF = false;
 
         task = new TimeoutThread(config.getDatabaseTimeout());

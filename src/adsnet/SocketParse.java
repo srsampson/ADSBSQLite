@@ -80,8 +80,8 @@ public final class SocketParse extends Thread {
      * Class constructor
      */
     public SocketParse(Config c, ZuluMillis z) {
-        this.config = c;
-        this.zulu = z;
+        config = c;
+        zulu = z;
 
         trackReports = new ConcurrentHashMap<>();
         reg = new NConverter();
@@ -234,7 +234,7 @@ public final class SocketParse extends Thread {
                 delta = Math.abs(currentTime - id.getUpdateTime());
 
                 if (delta >= (config.getDatabaseTimeout() * 60L * 1000L)) {
-                    removeTrackReportsVal(id.getAircraftID());
+                    removeTrackReportsKey(id.getAircraftID());
                 }
             }
         }
@@ -268,7 +268,7 @@ public final class SocketParse extends Thread {
                         if (delta >= 30L * 1000L) {
                             id.decrementTrackQuality();
                             id.setUpdateTime(currentTime);
-                            putTrackReportsVal(acid, id);   // overwrite
+                            putTrackReportsKeyedObject(acid, id);   // overwrite
                         }
                     }
                 } catch (NoSuchElementException e1) {
@@ -314,13 +314,13 @@ public final class SocketParse extends Thread {
      * @return a track object Representing the Mode-S code requested or null if
      * none found
      */
-    private synchronized Track getTrackReportsVal(String acid) {
+    private synchronized Track getTrackReportsKey(String acid) {
         Track trk = (Track) null;
 
         try {
             trk = (Track) trackReports.get(acid);
         } catch (NullPointerException e) {
-            System.err.println("SocketParse::getTrackReportsVal Exception during get " + e.toString());
+            System.err.println("SocketParse::getTrackReportsKey Exception during get " + e.toString());
         }
 
         return trk;
@@ -332,11 +332,11 @@ public final class SocketParse extends Thread {
      * @param acid a string Representing the Mode-S key into the table
      * @param id a track object Representing the Mode-S track
      */
-    private synchronized void putTrackReportsVal(String acid, Track id) {
+    private synchronized void putTrackReportsKeyedObject(String acid, Track id) {
         try {
             trackReports.put(acid, id);
         } catch (NullPointerException e) {
-            System.err.println("SocketParse::putTrackReportsVal Exception during put " + e.toString());
+            System.err.println("SocketParse::putTrackReportsKeyedObject Exception during put " + e.toString());
         }
     }
 
@@ -345,11 +345,11 @@ public final class SocketParse extends Thread {
      *
      * @param acid a string Representing the Mode-S key into the table
      */
-    private synchronized void removeTrackReportsVal(String acid) {
+    private synchronized void removeTrackReportsKey(String acid) {
         try {
             trackReports.remove(acid);
         } catch (NullPointerException e) {
-            System.err.println("SocketParse::removeTrackReportsVal Exception during remove " + e.toString());
+            System.err.println("SocketParse::removeTrackReportsKey Exception during remove " + e.toString());
         }
     }
 
@@ -392,7 +392,7 @@ public final class SocketParse extends Thread {
                         /*
                          * See if this ACID is on the table already
                          */
-                        if ((id = getTrackReportsVal(acid)) == (Track) null) {
+                        if ((id = getTrackReportsKey(acid)) == (Track) null) {
                             try {
                                 id = new Track();
                             } catch (Exception e) {
@@ -713,7 +713,7 @@ public final class SocketParse extends Thread {
                         }
 
                         id.setUpdateTime(currentTime);
-                        putTrackReportsVal(acid, id);
+                        putTrackReportsKeyedObject(acid, id);
                     }
                 }
 

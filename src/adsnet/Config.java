@@ -167,11 +167,11 @@ public final class Config {
      * @return a int Representing a numeric radar ID
      */
     public int getRadarID() {
-        return this.radarid;
+        return radarid;
     }
 
     public int getRadarScanTime() {
-        return this.radarscan;
+        return radarscan;
     }
 
     /**
@@ -180,7 +180,7 @@ public final class Config {
      * @return a boolean Where true means disable the GUI display
      */
     public boolean getDisableGui() {
-        return this.disablegui;
+        return disablegui;
     }
 
     /**

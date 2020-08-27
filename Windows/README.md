@@ -1,1 +1,1 @@
-This was compiled on Windows. Maybe work where the other doesn't??
+This was compiled on Windows. Compiled with older JDBC JAR file .30 version.

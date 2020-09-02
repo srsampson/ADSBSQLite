@@ -34,7 +34,6 @@ public final class MetarUpdater {
     private final TimerTask task1;
     //
     private URL nws;
-    private final ZuluMillis zulu;
     private BufferedReader in;
     private Statement query;
     private final Connection con;
@@ -42,8 +41,7 @@ public final class MetarUpdater {
     private final String[] metarLongName;
     private final String[] metarStations;
 
-    public MetarUpdater(Config c, ADSBDatabase d, ZuluMillis z) {
-        zulu = z;
+    public MetarUpdater(Config c, ADSBDatabase d) {
         con = d.getDBConnection();
         homeAlt = c.getHomeAlt();
         metarStations = c.getMetarNames();
@@ -103,7 +101,6 @@ public final class MetarUpdater {
                     } while (true);
 
                     in.close();
-
                     String[] token = inputLine.split(" ");   // Tokenize the data input line
 
                     utcObserve = token[2];
@@ -218,7 +215,7 @@ public final class MetarUpdater {
                         }
 
                         if (token[i].startsWith("T")) {
-                            if (token[i].substring(1, 2).equals("W") || token[i].substring(1, 2).equals("E")) // might be TWR or TEM
+                            if (token[i].substring(1, 2).equals("W") || token[i].substring(1, 2).equals("E")) // might be TS TWR or TEM
                             {
                                 continue;
                             }
@@ -268,7 +265,7 @@ public final class MetarUpdater {
                             + "altimeter,pressureAlt,windDirection,windSpeed,windGust)"
                             + " VALUES ('%s',%d,'%s',%d,%d,%d,%.2f,%d,%03d,%d,%d)",
                             metarStations[j],
-                            zulu.getUTCTime(),
+                            System.currentTimeMillis(),
                             utcObserve,
                             tf,
                             dpf,

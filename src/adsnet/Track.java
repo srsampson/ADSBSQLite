@@ -38,12 +38,9 @@ public final class Track {
     private long updatePositionTime;// zulu time object lat/lon position was updated
     private boolean updated;        // set on update, cleared on sent
     private boolean updatePosition;
-    //
-    private final ZuluMillis zulu;  // UTC time generator
 
     public Track() {
-        zulu = new ZuluMillis();
-        updateTime = zulu.getUTCTime();
+        updateTime = System.currentTimeMillis();
         //
         acid = "";
         registration = "";
@@ -406,7 +403,7 @@ public final class Track {
         if (changed) {
             incrementTrackQuality();
             updated = updatePosition = true;
-            updatePositionTime = zulu.getUTCTime();
+            updatePositionTime = System.currentTimeMillis();
         }
     }
 

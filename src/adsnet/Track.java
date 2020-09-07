@@ -222,30 +222,30 @@ public final class Track {
         if (verticalRate != val) {
             verticalRate = val;
             updated = true;
-            
-            int vt = 0;
+        }
+        
+        int vt = 0;
 
-            if (val > 192) {
-                trend[trend_el] = 1;
-            } else if (val < -192) {
-                trend[trend_el] = -1;
-            } else {
-                trend[trend_el] = 0;
-            }
+        if (val > 192) {
+            trend[trend_el] = 1;
+        } else if (val < -192) {
+            trend[trend_el] = -1;
+        } else {
+            trend[trend_el] = 0;
+        }
 
-            trend_el = (trend_el + 1) % 10;
+        trend_el = (trend_el + 1) % 10;
 
-            for (int i = 0; i < 10; i++) {
-                vt += trend[i];
-            }
+        for (int i = 0; i < 10; i++) {
+            vt += trend[i];
+        }
 
-            if (vt > 0) {
-                verticalTrend = 1;
-            } else if (vt < 0) {
-                verticalTrend = -1;
-            } else {
-                verticalTrend = 0;
-            }
+        if (vt > 0) {
+            verticalTrend = 1;
+        } else if (vt < 0) {
+            verticalTrend = -1;
+        } else {
+            verticalTrend = 0;
         }
     }
 
